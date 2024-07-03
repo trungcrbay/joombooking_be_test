@@ -29,6 +29,12 @@ export class UsersController {
     return this.usersService.createRandomUser();
   }
 
+  @Post('bulk')
+  @ResponseMessage('Create multiple users successfully')
+  createMany(@Body('users') createUserDtos: CreateUserDto[]) {
+    return this.usersService.createManyUser(createUserDtos);
+  }
+
   @Get()
   async findUserPagination(
     @Query('page') currentPage: number,

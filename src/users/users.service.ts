@@ -23,6 +23,23 @@ export class UsersService {
     };
   }
 
+  async createManyUser(users: CreateUserDto[]) {
+    try {
+      const validUsers = users.filter(
+        (user) => user.name && user.email && user.phone && user.address,
+      );
+
+      if (!users) {
+        throw new Error('No valid users to create');
+      }
+
+      const createdUsers = await this.userModel.insertMany(validUsers);
+      return createdUsers;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async createRandomUser(): Promise<User> {
     const randomUser = {
       name: faker.internet.userName(),
