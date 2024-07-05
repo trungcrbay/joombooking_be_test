@@ -43,15 +43,27 @@ export class UsersController {
     @Query('name') name?: string,
     @Query('phone') phone?: string,
     @Query('email') email?: string,
-  ): Promise<User[] | { pagination: any; users: User[] }> {
-    if (address || name || phone || email) {
-      return this.usersService.searchQueryProject(address, name, phone, email);
-    } else if (currentPage && limit) {
-      const qs = `page=${currentPage}&limit=${limit}`;
-      return this.usersService.findUserPagination(currentPage, limit, qs);
-    } else {
-      return this.usersService.findAll();
-    }
+    @Query('sortBy') sortBy?: string,
+    @Query('age') age?: number,
+    @Query('lt') lt?: number,
+    @Query('gt') gt?: number,
+    @Query('status') status?: "0" | "1",
+    @Query('sortOrder') sortOrder: 'asc' | 'desc' = 'asc',
+  ): Promise<{ pagination: any; users: User[] }> {
+    return this.usersService.findUserPagination(
+      currentPage,
+      limit,
+      sortBy,
+      sortOrder,
+      address,
+      name,
+      phone,
+      email,
+      lt,
+      gt,
+      age,
+      status,
+    );
   }
 
   @Get(':id')

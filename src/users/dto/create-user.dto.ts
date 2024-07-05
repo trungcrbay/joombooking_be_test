@@ -14,12 +14,22 @@ export class CreateUserDto {
     @IsNotEmpty({
         message: 'Phone must not be empty'
     })
-    phone: string;
+    phone: number;
 
     @IsNotEmpty({
-        message: 'description must not be empty'
+        message: 'Description must not be empty'
     })
     address: string;
+
+    @IsNotEmpty({
+        message: 'Status must be true or false'
+    })
+    status: boolean;
+
+    @IsNotEmpty({
+        message: 'Age must not be empty'
+    })
+    age: number;
 
 }
 

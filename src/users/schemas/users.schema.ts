@@ -28,6 +28,15 @@ export class User {
     type: String,
   })
   address: string;
+
+  @Prop({
+    required: true,
+    type: Number,
+  })
+  age: number;
+
+  @Prop()
+  status: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
