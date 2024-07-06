@@ -27,8 +27,6 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^10.0.6",
     "@nestjs/platform-express": "^10.0.0",
-    "api-query-params": "^5.4.0",
-    "aqp": "^0.0.0",
     "class-validator": "^0.14.1",
     "i": "^0.3.7",
     "mongoose": "^8.4.4",

@@ -24,6 +24,21 @@ export class UsersService {
     };
   }
 
+  async createRandomUser(): Promise<User> {
+    const randomUser = {
+      name: faker.internet.userName(),
+      email: faker.internet.email(),
+      phone: faker.phone.number(),
+      address: faker.location.country(),
+      status: faker.datatype.boolean(0.6),
+      age: faker.number.int({ min: 18, max: 70 }),
+    };
+
+    const user = await this.userModel.create(randomUser);
+    console.log(user);
+    return user;
+  }
+
   async createManyUser(users: CreateUserDto[]) {
     try {
       const validUsers = users.filter(
@@ -41,49 +56,11 @@ export class UsersService {
     }
   }
 
-  async createRandomUser(): Promise<User> {
-    const randomUser = {
-      name: faker.internet.userName(),
-      email: faker.internet.email(),
-      phone: faker.phone.number(),
-      address: faker.location.country(),
-      status: faker.datatype.boolean(0.6),
-      age: faker.number.int({ min: 18, max: 70 }),
-    };
-
-    const user = await this.userModel.create(randomUser);
-    console.log(user);
-    return user;
-  }
-  // async searchQueryProject(
-  //   address?: string,
-  //   name?: string,
-  //   phone?: string,
-  //   email?: string,
-  // ): Promise<User[]> {
-  //   const query: any = {};
-
-  //   if (address) {
-  //     query.address = { $regex: '.*' + address.trim() + '.*', $options: 'i' };
-  //   }
-  //   if (name) {
-  //     query.name = { $regex: '.*' + name.trim() + '.*', $options: 'i' };
-  //   }
-  //   if (phone) {
-  //     query.phone = { $regex: '.*' + phone.trim() + '.*', $options: 'i' };
-  //   }
-  //   if (email) {
-  //     query.email = { $regex: '.*' + email.trim() + '.*', $options: 'i' };
-  //   }
-
-  //   return this.userModel.find(query).exec();
-  // }
-
   async findUserPagination(
     currentPage: number,
     limit: number,
     sortBy?: string,
-    sortOrder: 'asc' | 'desc' = 'asc', // default to ascending order
+    sortOrder: 'asc' | 'desc' = 'asc', 
     address?: string,
     name?: string,
     phone?: string,
@@ -149,9 +126,8 @@ export class UsersService {
         },
         users,
       };
-    } catch (error) {
-      // Handle any errors that might occur during the database operation
-      throw new Error(`Error finding users: ${error.message}`);
+    } catch (error) { 
+      throw new Error(`Error: ${error.message}`);
     }
   }
 
